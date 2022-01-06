@@ -1,6 +1,7 @@
 
 import re
 from copy import deepcopy
+import itertools
 
 """==================================== LIST ===================================="""
 
@@ -118,12 +119,41 @@ def permute(*args, **kwargs):
     return args[0], args[1]
 
 
+def show_matrix(matrix: list) -> None:
+    """
+    Show a matrix with the numbers alligned.
+    :param matrix: Matrix needed to be shown.
+    :type matrix: list
+    :return: Nothing, it just prints
+    :rtype: None
+    """
+    flatten_matrix = list(itertools.chain.from_iterable(matrix))
+    len_max_value = max([len(str(elem)) for elem in flatten_matrix])
+
+    for line in matrix:
+        print('|', end='')
+        for i, value in enumerate(line):
+            space_needed = len_max_value - len(str(value)) + 1
+            space = " " * space_needed
+            print((f"{value} " if value < 0 else f" {value}"), end = space)
+        print('|', end='')
+        print()
+
+
 if __name__ == '__main__':
     """====== HTML EXEMPLES ======"""
-    # TAG function
+    # tag function ======
     print(tag('a', href = "https://github.com/TomPlanche"))
     tagExemple = tag('img', height = '20px', width = '40px', src = "face.jpg")
     print(tagExemple)
-    # findInHtmlTag
+
+    # findInHtmlTag function ======
     print(findInHtmlTag(tagExemple, "src"))
 
+    # show_matrix function ======
+    m1 = [
+        [1, 2, 3],
+        [13, 14, 15],
+        [7, 8, 9]
+    ]
+    show_matrix(m1)
